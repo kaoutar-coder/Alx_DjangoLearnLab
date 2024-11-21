@@ -1,16 +1,7 @@
-Commande ECHO activ�e.
+# Delete a Book Instance
 
----
-
-### 4. **DELETE** (`delete.md`)
-**Contenu du fichier `delete.md`** :
-```markdown
-# DELETE Operation
-
-## Commande utilisée
+## Command:
 ```python
-# Récupérer un objet existant
-book = Book.objects.get(id=1)
-
-# Supprimer l'objet
+book = Book.objects.get(title="Nineteen Eighty-Four")
 book.delete()
+print(Book.objects.all())  # Should return an empty QuerySet 

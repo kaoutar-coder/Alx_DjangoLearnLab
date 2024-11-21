@@ -4,9 +4,9 @@ from django.db import models
 from django.db import models
 
 class Book(models.Model):
-    title = models.CharField(max_length=200)  # Title of the book
-    author = models.CharField(max_length=100)  # Author of the book
-    publication_year = models.IntegerField()  # Year of publication
+    title = models.CharField(max_length=200)
+    author = models.CharField(max_length=100)
+    publication_year = models.IntegerField()
 
     def __str__(self):
-        return f"{self.title} by {self.author}"
+        return self.title
