@@ -64,8 +64,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('books/add/', add_book, name='add_book'),
-    path('books/<int:book_id>/edit/', edit_book, name='edit_book'),
-    path('books/<int:book_id>/delete/', views.delete_book, name='delete_book'),
+    path('books/add/', views_add_book, name='add_book'),
+    path('books/<int:book_id>/edit_book/', views_edit_book, name='edit_book'),
+    path('books/<int:book_id>/delete_book/', views.delete_book, name='delete_book'),
     path('books/', views.book_list, name='book_list'),  # Vue pour lister les livres
 ]
