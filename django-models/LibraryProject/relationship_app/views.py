@@ -50,4 +50,5 @@ def register(request):
             return redirect('home')  # Replace 'home' with your app's homepage view name
     else:
         form = UserCreationForm()
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'relationship_app/register.html', {'form': form})
+
