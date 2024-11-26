@@ -50,5 +50,29 @@ def register(request):
             return redirect('home')  # Replace 'home' with your app's homepage view name
     else:
         form = UserCreationForm()
-    return render(request, 'relationship_app/register.html', {'form': form})
+    return render(request, 'register.html', {'form': form})
 
+
+
+#Set Up Role-Based Views
+
+from django.shortcuts import render
+from django.contrib.auth.decorators import user_passes_test
+from django.http import HttpResponseForbidden
+
+def check_role(role):
+    def inner_check(user):
+        return hasattr(user, 'userprofile') and user.userprofile.role == role
+    return inner_check
+
+@user_passes_test(check_role('Admin'))
+def admin_view(request):
+    return render(request, 'admin_view.html')
+
+@user_passes_test(check_role('Librarian'))
+def librarian_view(request):
+    return render(request, 'librarian_view.html')
+
+@user_passes_test(check_role('Member'))
+def member_view(request):
+    return render(request, 'member_view.html')
