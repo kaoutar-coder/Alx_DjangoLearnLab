@@ -41,9 +41,12 @@ from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
     ROLE_CHOICES = [
-        ('Admin', 'Admin'),
-        ('Librarian', 'Librarian'),
-        ('Member', 'Member'),
+
+        ("Admin", "Admin"),
+
+        ("Librarian", "Librarian"),
+
+        ("Member", "Member"),
     ]
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -51,3 +54,4 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.role}"
+
