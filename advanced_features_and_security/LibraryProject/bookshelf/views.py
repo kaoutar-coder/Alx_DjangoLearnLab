@@ -34,3 +34,29 @@ def delete_book(request, pk):
         return redirect('book_list')
     return render(request, 'delete_book.html', {'book': book})
 
+
+
+# views.py
+from django.shortcuts import render
+from .models import Book
+from .forms import BookSearchForm
+from django.db.models import Q
+
+# Example of a view with input validation
+
+def book_search(request):
+    query = ""
+    results = []
+    if request.method == "GET" and 'q' in request.GET:
+        form = BookSearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['q']
+            results = Book.objects.filter(Q(title__icontains=query) | Q(author__icontains=query))
+    else:
+        form = BookSearchForm()
+
+    return render(request, 'bookshelf/book_list.html', {'form': form, 'results': results})
+
+
+
+

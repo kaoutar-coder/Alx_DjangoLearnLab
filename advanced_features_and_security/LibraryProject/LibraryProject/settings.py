@@ -130,5 +130,51 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
 
 
+#  Includes secure configurations like CSP, secure cookies, and browser-side protections.
 
+import os
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
 
+# Security settings
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# HTTPS cookie settings
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+# Content Security Policy (CSP)
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'",)
+CSP_STYLE_SRC = ("'self'",)
+CSP_IMG_SRC = ("'self'",)
+
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'csp.middleware.CSPMiddleware',
+    # other middleware...
+]
+
+# Other settings...
+
+# Templates: Ensure CSRF token inclusion
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+# Additional settings...
