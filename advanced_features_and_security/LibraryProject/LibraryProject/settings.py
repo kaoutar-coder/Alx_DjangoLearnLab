@@ -178,3 +178,31 @@ TEMPLATES = [
 ]
 
 # Additional settings...
+
+
+# Redirect all HTTP requests to HTTPS
+SECURE_SSL_REDIRECT = True
+
+# Enforce HTTPS for a specified time (1 year in seconds)
+SECURE_HSTS_SECONDS = 31536000
+
+# Include subdomains in the HSTS policy
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+# Allow preloading of the HSTS policy
+SECURE_HSTS_PRELOAD = True
+
+# Ensure session cookies are only transmitted over HTTPS
+SESSION_COOKIE_SECURE = True
+
+# Ensure CSRF cookies are only transmitted over HTTPS
+CSRF_COOKIE_SECURE = True
+
+# Prevent clickjacking by disallowing the site to be framed
+X_FRAME_OPTIONS = 'DENY'
+
+# Prevent browsers from MIME-sniffing
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Enable the browser’s XSS filtering
+SECURE_BROWSER_XSS_FILTER = True
