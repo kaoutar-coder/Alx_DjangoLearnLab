@@ -71,4 +71,51 @@ class CustomUserManager(BaseUserManager):
 
 
 
+# Django provides the ability to add custom permissions to models using the permissions attribute in the Meta class of a model.
+from django.db import models
 
+class Document(models.Model):
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        permissions = [
+            ("can_view", "Can view document"),
+            ("can_create", "Can create document"),
+            ("can_edit", "Can edit document"),
+            ("can_delete", "Can delete document"),
+        ]
+    
+    def __str__(self):
+        return self.title
+
+
+# management/commands/configure_groups.py
+from django.core.management.base import BaseCommand
+from django.contrib.auth.models import Group, Permission
+
+class Command(BaseCommand):
+    help = "Create user groups and assign permissions"
+
+    def handle(self, *args, **kwargs):
+        # Define groups and their permissions
+        groups_permissions = {
+            "Viewers": ["can_view"],
+            "Editors": ["can_view", "can_edit", "can_create"],
+            "Admins": ["can_view", "can_create", "can_edit", "can_delete"],
+        }
+
+        for group_name, permissions in groups_permissions.items():
+            group, created = Group.objects.get_or_create(name=group_name)
+            for perm in permissions:
+                try:
+                    permission = Permission.objects.get(codename=perm)
+                    group.permissions.add(permission)
+                except Permission.DoesNotExist:
+                    self.stderr.write(f"Permission '{perm}' does not exist.")
+            group.save()
+            self.stdout.write(f"Group '{group_name}' configured successfully.")
+
+        self.stdout.write("All groups configured with permissions!")
