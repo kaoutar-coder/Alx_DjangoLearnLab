@@ -1,5 +1,7 @@
 
-from django import forms
+from django import ExampleForm
 
-class BookSearchForm(forms.Form):
-    q = forms.CharField(label='Search', max_length=100, required=False)
+class BookSearchForm(ExampleForm.Form):
+    q = ExampleForm.CharField(label='Search', max_length=100, required=False)
+
+    
