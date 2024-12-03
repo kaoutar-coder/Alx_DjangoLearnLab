@@ -5,31 +5,32 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseForbidden
-from .models import Document
+from .models import books
 
 @permission_required('app_name.can_view', raise_exception=True)
-def document_list(request):
-    documents = Document.objects.all()
-    return render(request, 'document_list.html', {'documents': documents})
+def book_list(request):
+    books = books.objects.all()
+    return render(request, 'book_list.html', {'books': books})
 
 @permission_required('app_name.can_edit', raise_exception=True)
-def edit_document(request, pk):
-    document = get_object_or_404(Document, pk=pk)
+def edit_book(request, pk):
+    book = get_object_or_404(book, pk=pk)
     if request.method == "POST":
-        # Add logic for updating the document
+        # Add logic for updating the book
         pass
-    return render(request, 'edit_document.html', {'document': document})
+    return render(request, 'edit_book.html', {'book': book})
 
 @permission_required('app_name.can_create', raise_exception=True)
-def create_document(request):
+def create_book(request):
     if request.method == "POST":
-        # Add logic for creating a new document
+        # Add logic for creating a new book
         pass
-    return render(request, 'create_document.html')
+    return render(request, 'create_book.html')
 @permission_required('app_name.can_delete', raise_exception=True)
-def delete_document(request, pk):
-    document = get_object_or_404(Document, pk=pk)
+def delete_book(request, pk):
+    book = get_object_or_404(book, pk=pk)
     if request.method == "POST":
-        document.delete()
-        return redirect('document_list')
-    return render(request, 'delete_document.html', {'document': document})
+        book.delete()
+        return redirect('book_list')
+    return render(request, 'delete_book.html', {'book': book})
+
