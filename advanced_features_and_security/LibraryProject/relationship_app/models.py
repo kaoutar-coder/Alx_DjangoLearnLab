@@ -83,6 +83,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 class CustomUser(AbstractUser):
+
     date_of_birth = models.DateField(null=True, blank=True)
     profile_photo = models.ImageField(upload_to='profile_photos/', null=True, blank=True)
 
@@ -91,6 +92,7 @@ class CustomUser(AbstractUser):
 
 
 
+"class CustomUser(AbstractUser):", "date_of_birth", "profile_photo"
 
 # Create User Manager for Custom User Model
 from django.contrib.auth.models import AbstractUser, BaseUserManager
