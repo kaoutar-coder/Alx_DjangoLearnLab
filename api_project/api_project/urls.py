@@ -24,3 +24,42 @@ urlpatterns = [
     path('books/', BookList.as_view(), name='book-list'),  # Maps to the BookList view
 
 ]
+
+
+from rest_framework.routers import DefaultRouter
+from .views import BookViewSet
+
+router = DefaultRouter()
+router.register(r'books_all', BookViewSet, basename='book_all')
+
+
+
+from django.urls import include, path
+from django.contrib import admin
+from django.urls import include, path
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('api/', include('api.urls')),    # Includes API routes
+]
+
+
+
+urlpatterns = [
+    # Route for the BookList view (ListAPIView)
+    path('books/', BookList.as_view(), name='book-list'),
+
+    # Include the router URLs for BookViewSet (all CRUD operations)
+    path('', include (router.urls)),  # This includes all routes registered with the router
+]
+
+from rest_framework.authtoken.views import obtain_auth_token
+from django.urls import path, include
+from rest_framework.authtoken.views import obtain_auth_token
+
+urlpatterns = [
+    # Other URL patterns
+    path('api/token/', obtain_auth_token, name='api_token'),  # Token retrieval endpoint
+]
+
+
