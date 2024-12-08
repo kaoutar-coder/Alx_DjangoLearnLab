@@ -28,6 +28,7 @@ class AuthorSerializer(serializers.ModelSerializer):
     The nested relationship is established dynamically based on the related_name="books" in the Book model.
     """
     books = BookSerializer(many=True, read_only=True, source='books')
+
     # 'books' field uses the BookSerializer to serialize related books.
     # 'many=True' indicates the relationship is one-to-many.
     # 'read_only=True' ensures books can only be viewed, not modified through the AuthorSerializer.
@@ -35,3 +36,5 @@ class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
         fields = ['name', 'books']  # Includes the name and the nested list of books
+
+       
