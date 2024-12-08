@@ -37,4 +37,4 @@ class AuthorSerializer(serializers.ModelSerializer):
         model = Author
         fields = ['name', 'books']  # Includes the name and the nested list of books
 
-       
+     
