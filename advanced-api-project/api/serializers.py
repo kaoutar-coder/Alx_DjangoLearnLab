@@ -21,13 +21,13 @@ class BookSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Publication year cannot be in the future.")
         return value
 
-class AuthorSerializer(serializers.ModelSerializer):
+class AuthorSerializer(serializers.ModelSerializer):  
     """
     Serializer for the Author model.
     Includes the author's name and a nested representation of related books using the BookSerializer.
     The nested relationship is established dynamically based on the related_name="books" in the Book model.
     """
-    books = BookSerializer(many=True, read_only=True, source='books')
+    books = BookSerializer( many=True, read_only=True, source='books')
 
     # 'books' field uses the BookSerializer to serialize related books.
     # 'many=True' indicates the relationship is one-to-many.
