@@ -21,7 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 
-from django.urls import path
+from api.urls import path
 from .views import BookListView, BookDetailView, BookCreateView, BookUpdateView, BookDeleteView
 
 urlpatterns = [
