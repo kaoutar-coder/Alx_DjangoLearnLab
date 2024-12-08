@@ -3,16 +3,18 @@ from django.db import models
 # Create your models here.
 
 
+from django.db import models
+
 class Author(models.Model):
-     """
+    """
     Represents an author entity with a name field.
     Each author can have multiple books associated with them.
     """
     name = models.CharField(max_length=255)  # Name of the author
 
     def __str__(self):
-        return self.name      # Returns the author's name as a string
-        
+        return self.name  # Returns the author's name as a string
+
 
 class Book(models.Model):
     """
