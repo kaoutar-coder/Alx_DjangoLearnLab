@@ -3,7 +3,8 @@ from django.shortcuts import render
 # Create your views here.
 from rest_framework import generics, permissions
 from rest_framework.exceptions import ValidationError
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated"
+from rest_framework.permissions import IsAuthenticatedOrReadOnly , IsAuthenticated
+
 from .models import Book
 from .serializers import BookSerializer
 
@@ -30,7 +31,7 @@ class BookDetailView(generics.RetrieveAPIView):
     serializer_class = BookSerializer
     permission_classes = [permissions.AllowAny]  # No restrictions for read-only access
 
-    class BookCreateView(generics.CreateAPIView):
+class BookCreateView(generics.CreateAPIView):
     """
     View to create a new book in the database.
     Restricted to authenticated users.
@@ -81,10 +82,12 @@ from .serializers import BookSerializer
 
 
 
+
+
 class BookListView(ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    filter_backends = [filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filter_backends = [ filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['title', 'author', 'publication_year']
     search_fields = ['title', 'author']
     ordering_fields = ['title', 'publication_year']
