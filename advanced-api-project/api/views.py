@@ -73,11 +73,13 @@ class BookDeleteView(generics.DestroyAPIView):
     permission_classes = [permissions.IsAuthenticated]  # Only authenticated users can delete books
 
 
-
+from django_filters import rest_framework
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.generics import ListAPIView
 from .models import Book
 from .serializers import BookSerializer
+
+
 
 class BookListView(ListAPIView):
     queryset = Book.objects.all()
