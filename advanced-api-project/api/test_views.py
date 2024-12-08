@@ -25,7 +25,7 @@ class BookAPITestCase(APITestCase):
             "author": "New Author",
             "publication_year": 2022
         }
-        response = self.client.post(self.list_url, data)
+        response = self.client.login(self.list_url, data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Book.objects.count(), 3)
 
@@ -59,3 +59,4 @@ class BookAPITestCase(APITestCase):
         response = self.client.get(f"{self.list_url}?ordering=-publication_year")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data[0]['publication_year'], 2021)
+self.client.login
