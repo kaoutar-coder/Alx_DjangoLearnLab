@@ -20,3 +20,28 @@ from django.urls import path
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
+
+from django.urls import path
+from django.contrib.auth.views import LoginView, LogoutView
+from . import views
+
+urlpatterns = [
+    path('login/', LoginView.as_view(template_name='authentication/login.html'), name='login'),
+    path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
+    path('register/', views.RegisterView.as_view(), name='register'),
+    path('profile/', views.ProfileView.as_view(), name='profile'),
+]
+
+from django.urls import path, include
+from . import views  # Import your custom views
+
+urlpatterns = [
+    path('auth/', include('blog.authentication_urls')),  # Include a separate file for authentication URLs
+    path('', views.home, name='home'),  # Example: home page
+]
+
+
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
