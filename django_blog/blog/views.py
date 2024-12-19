@@ -31,3 +31,42 @@ def ProfileView(request):
         'user_form': user_form,
         'profile_form': profile_form
     })
+
+
+# Registration View
+def register_view(request):
+    if request.method == "POST":
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect("/profile")
+    else:
+        form = CustomUserCreationForm()
+    return render(request, "authentication/register.html", {"form": form})
+
+# Login View
+def login_view(request):
+    if request.method == "POST":
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect("/")
+    else:
+        form = AuthenticationForm()
+    return render(request, "authentication/login.html", {"form": form})
+
+# Logout View
+def logout_view(request):
+    logout(request)
+    return redirect("/login")
+
+# Profile Management View
+@login_required
+def profile_view(request):
+    if request.method == "POST":
+        user = request.user
+        user.email = request.POST.get("email", user.email)
+        user.save()
+    return render(request, "authentication/profile.html", {"user": request.user})
