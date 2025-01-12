@@ -103,9 +103,11 @@ class UnlikePostView(APIView):
         user = request.user
 
         # Check if user has liked the post
-        like = Like.objects.filter(user=user, post=post).first()
+        like = Like.objects.get_or_create(user=request.user, post=post).first()
         if not like:
             return Response({"detail": "You have not liked this post."}, status=status.HTTP_400_BAD_REQUEST)
 
         like.delete()
         return Response({"detail": "Post unliked successfully."}, status=status.HTTP_200_OK)
+
+generics.get_object_or_404(Post, pk=pk)
