@@ -25,4 +25,12 @@ class UserSerializer(serializers.ModelSerializer):
         Token.objects.create(user=user)
         return user
 
+from rest_framework import serializers
+from .models import CustomUser
+
+class FollowSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['id', 'username', 'followers', 'following']
+        read_only_fields = ['followers', 'following']
 
